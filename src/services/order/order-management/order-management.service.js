@@ -1,4 +1,4 @@
-class orderController {
+class OrderManagementService {
   constructor (dependencies) {
     this._dependencies = dependencies
     this._db = dependencies.db
@@ -6,7 +6,7 @@ class orderController {
     this._utilities = dependencies.utilities
     this._console = this._dependencies.console
     this._services = this._dependencies.services
-    this._tableName = 'order'
+    this._tableName = 'orders'
   }
 
   async create (data) {
@@ -23,7 +23,6 @@ class orderController {
         tableName: this._tableName,
         entity: entity.get
       })
-
 
       if (!transactionResponse) {
         this._console.error(transactionResponse)
@@ -71,7 +70,6 @@ class orderController {
       switch (data.queryselector) {
         case 'id':
           response = await this.#getById(data)
-          // response = this._utilities.io.response.success("vas excelente, bravoooooo", "Muy bien Freddy", { status: 200 })
           break
         case 'PROPERTY':
           response = await this.#getByPROPERTY(data)
@@ -116,7 +114,6 @@ class orderController {
     }
   }
 
-
   async #getById (data) {
     try {
       if (!data || !data.search) {
@@ -140,7 +137,7 @@ class orderController {
         return this._utilities.io.response.error('Please provide query to search')
       }
 
-      const dataPropertys = Object.keys(data);
+      const dataPropertys = Object.keys(data)
       return this.#getByFilters({
         filters: [
           { key: dataPropertys[1], operator: '==', value: data[dataPropertys[1]] }
@@ -175,4 +172,4 @@ class orderController {
   }
 }
 
-module.exports = orderController
+module.exports = OrderManagementService

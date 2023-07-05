@@ -1,4 +1,4 @@
-class menuController {
+class MenuManagementService {
   constructor (dependencies) {
     this._dependencies = dependencies
     this._db = dependencies.db
@@ -6,7 +6,7 @@ class menuController {
     this._utilities = dependencies.utilities
     this._console = this._dependencies.console
     this._services = this._dependencies.services
-    this._tableName = 'menu'
+    this._tableName = 'menus'
   }
 
   async create (data) {
@@ -18,12 +18,10 @@ class menuController {
       data.id = this._utilities.generator.id({ length: 15, prefix: 'menu-' })
 
       const entity = new this._models.Menu(data, this._dependencies)
-      
       const transactionResponse = await this._db.transaction.create({
         tableName: this._tableName,
         entity: entity.get
       })
-
 
       if (!transactionResponse) {
         this._console.error(transactionResponse)
@@ -71,7 +69,6 @@ class menuController {
       switch (data.queryselector) {
         case 'id':
           response = await this.#getById(data)
-          // response = this._utilities.io.response.success("vas excelente, bravoooooo", "Muy bien Freddy", { status: 200 })
           break
         case 'PROPERTY':
           response = await this.#getByPROPERTY(data)
@@ -139,7 +136,7 @@ class menuController {
         return this._utilities.io.response.error('Please provide query to search')
       }
 
-      const dataPropertys = Object.keys(data);
+      const dataPropertys = Object.keys(data)
       return this.#getByFilters({
         filters: [
           { key: dataPropertys[1], operator: '==', value: data[dataPropertys[1]] }
@@ -174,4 +171,4 @@ class menuController {
   }
 }
 
-module.exports = menuController
+module.exports = MenuManagementService

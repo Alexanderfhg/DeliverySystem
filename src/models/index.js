@@ -4,7 +4,7 @@ module.exports.DeviceManagementModel = require('./device/device-management/devic
 
 module.exports.Template = require('./_template/_template.model')
 
-module.exports.Menu = require('./menu/menu-management.model')
-module.exports.ItemMenu = require('./itemDeMenu/itemMenu-management.model')
-module.exports.Order = require('./order/order-management.model')
+module.exports.Menu = require('./menu/menu-management/menu-management.model')
+module.exports.MenuItem = require('./menu/menu-item/menu-item.model')
+module.exports.Order = require('./order/order-management/order-management.model')
 // FIXME: Include all models here

@@ -65,7 +65,7 @@ class MenuManagementModel extends BaseModel {
     return {
       id: this.id.value || this.id.type.default,
       name: this.name.value || this.name.type.default,
-      items: this.items.value || this.items.type.default,
+      items: this.items.value || this.items.type.default
     }
   }
 

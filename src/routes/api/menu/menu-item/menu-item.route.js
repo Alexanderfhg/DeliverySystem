@@ -1,11 +1,18 @@
-class ItemDeMenuRoute {
+class MenuItemRoute {
   constructor (dependencies) {
-    this._item_de_menu_controller = require('../../../services/itemDeMenu/itemDeMenuController')
     this._dependencies = dependencies
     this._utilities = this._dependencies.utilities
     this._console = this._dependencies.console
+    this._services = this._dependencies.services
+
+    /* Custom Properties */
+    /* this._myPrivateProperty = 'Some value' */
+
+    /* Assigments */
+    /* this._newPrivateObject = new SomeObject(this._dependencies) */
+    this.EntityService = this._services.MenuItemService
   }
-/**
+  /**
  * @swagger
  * /delivery/ItemMenu/{queryselector}:
  *   get:
@@ -27,7 +34,7 @@ class ItemDeMenuRoute {
  *         description: Keyword to search for entities.
  *         required: true
  *         schema:
- *           type: string        
+ *           type: string
  *     responses:
  *       200:
  *         description: OK.
@@ -57,9 +64,10 @@ class ItemDeMenuRoute {
  *                   message: Something was wrong while you make this action
  *                   result: null
  */
+
   async get ({ params }) {
     try {
-      const entityService = new this._item_de_menu_controller(this._dependencies)
+      const entityService = new this.EntityService(this._dependencies)
       return entityService.get(params)
     } catch (error) {
       this._console.error(error)
@@ -67,7 +75,7 @@ class ItemDeMenuRoute {
     }
   }
 
-/**
+  /**
   *  @swagger
   * /delivery/ItemMenu:
   *   post:
@@ -112,7 +120,7 @@ class ItemDeMenuRoute {
   */
   async create ({ params }) {
     try {
-      const entityService = new this._item_de_menu_controller(this._dependencies)
+      const entityService = new this.EntityService(this._dependencies)
       return entityService.create(params)
     } catch (error) {
       this._console.error(error)
@@ -120,7 +128,7 @@ class ItemDeMenuRoute {
     }
   }
 
-/**
+  /**
  * @swagger
  * /delivery/ItemMenu:
  *   patch:
@@ -165,7 +173,7 @@ class ItemDeMenuRoute {
  */
   async update ({ params }) {
     try {
-      const entityService = new this._item_de_menu_controller(this._dependencies)
+      const entityService = new this.EntityService(this._dependencies)
       return entityService.update(params)
     } catch (error) {
       this._console.error(error)
@@ -173,7 +181,7 @@ class ItemDeMenuRoute {
     }
   }
 
-/**
+  /**
  * @swagger
  * /delivery/ItemMenu:
  *   delete:
@@ -217,7 +225,7 @@ class ItemDeMenuRoute {
  */
   async delete ({ params }) {
     try {
-      const entityService = new this._item_de_menu_controller(this._dependencies)
+      const entityService = new this.EntityService(this._dependencies)
       return entityService.delete(params)
     } catch (error) {
       this._console.error(error)
@@ -226,4 +234,4 @@ class ItemDeMenuRoute {
   }
 }
 
-module.exports = ItemDeMenuRoute;
+module.exports = MenuItemRoute

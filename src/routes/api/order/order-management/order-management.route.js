@@ -1,19 +1,26 @@
-class MenuRoute {
+class OrderManagementRoute {
   constructor (dependencies) {
-    this._menuController = require('../../../services/menu/menuController')
     this._dependencies = dependencies
     this._utilities = this._dependencies.utilities
     this._console = this._dependencies.console
+    this._services = this._dependencies.services
+
+    /* Custom Properties */
+    /* this._myPrivateProperty = 'Some value' */
+
+    /* Assigments */
+    /* this._newPrivateObject = new SomeObject(this._dependencies) */
+    this.EntityService = this._services.OrderService
   }
 
-/**
+  /**
  * @swagger
- * /delivery/menu/{queryselector}:
+ * /delivery/order/{queryselector}:
  *   get:
- *     summary: Get an Menu by query selector.
- *     description: Returns the Menu information that matches the query selector an search specified in the route.
+ *     summary: Get an order by query selector.
+ *     description: Returns the order information that matches the query selector an search specified in the route.
  *     tags:
- *       - Menu
+ *       - Order
  *     parameters:
  *       - in: path
  *         name: queryselector
@@ -28,7 +35,7 @@ class MenuRoute {
  *         description: Keyword to search for entities.
  *         required: true
  *         schema:
- *           type: string        
+ *           type: string
  *     responses:
  *       200:
  *         description: OK.
@@ -43,7 +50,7 @@ class MenuRoute {
  *                   success: true
  *                   message: Operation completed successfully
  *                   result:
- *                     $ref: '#/components/schemas/Menu'
+ *                     $ref: '#/components/schemas/Order'
  *       500:
  *         description: Something was wrong while you make this action.
  *         content:
@@ -58,31 +65,29 @@ class MenuRoute {
  *                   message: Something was wrong while you make this action
  *                   result: null
  */
-
   async get ({ params }) {
     try {
-      const entityService = new this._menuController(this._dependencies)
+      const entityService = new this.OrderService(this._dependencies)
       return entityService.get(params)
     } catch (error) {
       this._console.error(error)
       return this._utilities.io.response.error()
     }
   }
-
   /**
   *  @swagger
-  * /delivery/menu:
+  * /delivery/order:
   *   post:
-  *     summary: Create a new Menu.
-  *     description: Creates a new Menu using the provided data.
+  *     summary: Create a new order.
+  *     description: Creates a new order using the provided data.
   *     tags:
-  *       - Menu
+  *       - Order
   *     requestBody:
   *       required: true
   *       content:
   *         application/json:
   *           schema:
-  *             $ref: '#/components/schemas/Menu'
+  *             $ref: '#/components/schemas/Order'
   *     responses:
   *       200:
   *         description: OK.
@@ -97,7 +102,7 @@ class MenuRoute {
   *                   success: true
   *                   message: Operation completed successfully
   *                   result:
-  *                     $ref: '#/components/schemas/Menu'
+  *                     $ref: '#/components/schemas/Order'
   *       500:
   *         description: Something went wrong while performing this action.
   *         content:
@@ -115,7 +120,7 @@ class MenuRoute {
 
   async create ({ params }) {
     try {
-      const entityService = new this._menuController(this._dependencies)
+      const entityService = new this.OrderService(this._dependencies)
       return entityService.create(params)
     } catch (error) {
       this._console.error(error)
@@ -123,20 +128,20 @@ class MenuRoute {
     }
   }
 
-/**
+  /**
  * @swagger
- * /delivery/menu:
+ * /delivery/order:
  *   patch:
- *     summary: Update an existing Menu.
- *     description: Updates an existing Menu with the new data.
+ *     summary: Update an existing order.
+ *     description: Updates an existing order with the new data.
  *     tags:
- *       - Menu
+ *       - Order
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/UpdateMenuRequest'
+ *             $ref: '#/components/schemas/UpdateOrderRequest'
  *     responses:
  *       200:
  *         description: OK.
@@ -151,7 +156,7 @@ class MenuRoute {
  *                   success: true
  *                   message: Operation completed successfully
  *                   result:
- *                     $ref: '#/components/schemas/Menu'
+ *                     $ref: '#/components/schemas/Order'
  *       500:
  *         description: Something went wrong while performing this action.
  *         content:
@@ -166,10 +171,9 @@ class MenuRoute {
  *                   message: Something went wrong while performing this action
  *                   result: null
  */
-
   async update ({ params }) {
     try {
-      const entityService = new this._menuController(this._dependencies)
+      const entityService = new this.OrderService(this._dependencies)
       return entityService.update(params)
     } catch (error) {
       this._console.error(error)
@@ -177,20 +181,20 @@ class MenuRoute {
     }
   }
 
-/**
+  /**
  * @swagger
- * /delivery/menu:
+ * /delivery/order:
  *   delete:
- *     summary: Delete an Menu.
- *     description: Deletes an Menu based on the provided ID.
+ *     summary: Delete an order.
+ *     description: Deletes an order based on the provided ID.
  *     tags:
- *       - Menu
+ *       - Order
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/DeleteMenu'
+ *             $ref: '#/components/schemas/DeleteOrderRequest'
  *     responses:
  *       200:
  *         description: OK.
@@ -203,7 +207,7 @@ class MenuRoute {
  *                 value:
  *                   status: 200
  *                   success: true
- *                   message: Menu successfully deleted
+ *                   message: Order successfully deleted
  *                   result: null
  *       500:
  *         description: Something went wrong while performing this action.
@@ -221,7 +225,7 @@ class MenuRoute {
  */
   async delete ({ params }) {
     try {
-      const entityService = new this._menuController(this._dependencies)
+      const entityService = new this.OrderService(this._dependencies)
       return entityService.delete(params)
     } catch (error) {
       this._console.error(error)
@@ -230,4 +234,4 @@ class MenuRoute {
   }
 }
 
-module.exports = MenuRoute;
+module.exports = OrderManagementRoute

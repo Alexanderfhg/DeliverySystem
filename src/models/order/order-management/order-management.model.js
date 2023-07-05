@@ -5,32 +5,29 @@ const BaseModel = require(path.resolve(path.dirname(require.main.filename), 'src
  * @swagger
  * components:
  *    schemas:
- *      ItemMenu:
+ *      Order:
  *        type: object
  *        required:
- *          - name
- *          - price
+ *          - customerName
+ *          - items
  *        properties:
  *          id:
  *            type: string
- *            description: Item de Menú id
- *          name:
+ *            description: Order id
+ *          customerName:
  *            type: string
- *            description: Item de Menú name
- *          description:
- *            type: string
- *            description: Item de Menú description
- *          price:
- *            type: number
- *            description: Item de Menú price
+ *            description: Customer name
+ *          items:
+ *            type: array
+ *            description: Items included in the order
  *        example:
- *          id: "101"
- *          name: "Margherita Pizza"
- *          description: "Classic pizza topped with tomato sauce, mozzarella cheese, and basil"
- *          price: 10900
+ *          id: "1"
+ *          customerName: "John Doe"
+ *          items: ["101", "102", "203"]
  */
-class ItemMenuManagementModel extends BaseModel {
-  constructor(args, dependencies) {
+
+class OrderManagementModel extends BaseModel {
+  constructor (args, dependencies) {
     if (!args || !dependencies) {
       throw new Error('Required args and dependencies to build this entity')
     }
@@ -53,41 +50,39 @@ class ItemMenuManagementModel extends BaseModel {
     this.id = { value: args.id, type: this._types.bigserial, isPK: true }
     this.date_creation = { value: timestamp, type: this._types.timestamp }
     this.last_user_modification = { value: args.user_id, type: this._types.object }
-    this.status = { value: args.status || ItemMenuManagementModel.statuses.active, type: this._types.object }
+    this.status = { value: args.status || OrderManagementModel.statuses.active, type: this._types.object }
 
     /* Custom fields */
-    this.name = { value: args.name, type: this._types.string }
-    this.description = { value: args.description, type: this._types.string }
-    this.price = { value: args.price, type: this._types.decimal }
+    this.customerName = { value: args.customerName, type: this._types.string }
+    this.items = { value: args.items, type: this._types.array }
   }
 
   // Return entity sanitized
-  get sanitized() {
+  get sanitized () {
     return {
       id: this.id.value || this.id.type.default,
-      name: this.name.value || this.name.type.default,
-      price: this.price.value || this.price.type.default,
+      customerName: this.customerName.value || this.customerName.type.default,
+      items: this.items.value || this.items.type.default
     }
   }
 
-  get get() {
+  get get () {
     return {
       id: this.id.value || this.id.type.default,
       date_creation: this.date_creation.value || this.date_creation.type.default,
       last_modification: this.last_modification.value || this.last_modification.type.default,
       last_user_modification: this.last_user_modification.value || this.last_user_modification.type.default,
       status: this.status.value || this.status.type.default,
-      name: this.name.value || this.name.type.default,
-      description: this.description.value || this.description.type.default,
-      price: this.price.value || this.price.type.default
+      customerName: this.customerName.value || this.customerName.type.default,
+      items: this.items.value || this.items.type.default
     }
   }
 }
 
-ItemMenuManagementModel.statuses = {
+OrderManagementModel.statuses = {
   inactive: { id: 1, name: 'inactive', title: 'Inactive' },
   active: { id: 2, name: 'active', title: 'Active' },
-  deleted: { id: 999, name: 'deleted', title: 'Deleted' },
+  deleted: { id: 999, name: 'deleted', title: 'Deleted' }
 }
 
-module.exports = ItemMenuManagementModel
+module.exports = OrderManagementModel
