@@ -8,6 +8,10 @@ const DeviceService = require('./device/device-management/device-management.serv
 const NotificationService = require('./notification/notification-management/notification-management.service')
 const UserService = require('./user/user-management/user-management.service')
 
+const MenuService = require('./menu/menuController')
+const MenuItemService = require('./itemDeMenu/itemDeMenuController')
+const OrderService = require('./order/orderController')
+
 const Template = require('./_template/_template.service')
 
 module.exports = {
@@ -19,5 +23,8 @@ module.exports = {
   HealthService,
   UploadService,
   UserService,
-  Template
+  Template,
+  MenuService,
+  MenuItemService,
+  OrderService
 }
