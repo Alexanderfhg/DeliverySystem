@@ -1,34 +1,27 @@
-class menuController {
+class itemDeMenuController {
   constructor (dependencies) {
-    /* Base Properties */
     this._dependencies = dependencies
     this._db = dependencies.db
     this._models = dependencies.models
     this._utilities = dependencies.utilities
     this._console = this._dependencies.console
     this._services = this._dependencies.services
-
-    /* Custom Properties */
-    /* this._myPrivateProperty = 'Some value' */
-    this._tableName = 'menu'
-
-    /* Assigments */
-    /* this._newPrivateObject = new SomeObject(this._dependencies) */
+    this._tableName = 'item_de_menu'
   }
 
   async create (data) {
     try {
-      if (!data || !data.PROPERTY) {
+      if (!data) {
         return this._utilities.io.response.error('Please provide PROPERTY')
       }
 
-      data.id = this._utilities.generator.id({ length: 15, prefix: 'menu' })
+      data.id = this._utilities.generator.id({ length: 15, prefix: 'menuItem-' })
 
-      const entity = new this._models.Template(data, this._dependencies)
+      const entity = new this._models.ItemMenu(data, this._dependencies)
       
       const transactionResponse = await this._db.transaction.create({
         tableName: this._tableName,
-        entity: { ...entity.get, ...data.PROPERTY }
+        entity: entity.get
       })
 
 
@@ -37,7 +30,7 @@ class menuController {
         return this._utilities.io.response.error()
       }
 
-      return this._utilities.io.response.success({ ...entity.get, ...data.PROPERTY })
+      return this._utilities.io.response.success(entity.sanitized)
     } catch (error) {
       this._console.error(error)
       return this._utilities.io.response.error()
@@ -95,6 +88,34 @@ class menuController {
     }
   }
 
+  async delete (data) {
+    try {
+      if (!data || !data.id) {
+        return this._utilities.io.response.error('Please provide an id')
+      }
+
+      const updatedEntity = {
+        id: data.id,
+        status: this._models.ItemMenu.statuses.deleted
+      }
+
+      const transactionResponse = await this._db.transaction.update({
+        tableName: this._tableName,
+        entity: updatedEntity
+      })
+
+      if (!transactionResponse) {
+        this._console.error(transactionResponse)
+        return this._utilities.io.response.error()
+      }
+
+      return this._utilities.io.response.success(updatedEntity)
+    } catch (error) {
+      this._console.error(error)
+      return this._utilities.io.response.error()
+    }
+  }
+
   async #getById (data) {
     try {
       if (!data || !data.search) {
@@ -103,7 +124,7 @@ class menuController {
 
       return this.#getByFilters({
         filters: [
-          { key: 'id', operator: '==', value: parseInt(data.search) }
+          { key: 'id', operator: '==', value: data.search }
         ]
       })
     } catch (error) {
@@ -149,8 +170,8 @@ class menuController {
   }
 
   get status () {
-    return this._models.Template.statuses
+    return this._models.ItemMenu.statuses
   }
 }
 
-module.exports = menuController
+module.exports = itemDeMenuController

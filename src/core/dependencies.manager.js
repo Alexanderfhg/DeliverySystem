@@ -42,7 +42,7 @@ class DependenciesManager {
       path: require('path'),
       moment: require('moment'),
       crypto: require('crypto'),
-      config: require('../../config/default.json'),
+      config: require('config'),
       helmet: require('helmet'),
       bcrypt: require('bcryptjs'),
       request: require('axios'),

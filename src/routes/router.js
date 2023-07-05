@@ -39,17 +39,20 @@ const router = {
   ],
   delivery: [
     // menu
-    { httpRoute: '/menu/:queryselector', route: '/routes/api/delivery/menu.route', handler: 'get', method: 'GET', protected: false },
-    { httpRoute: '/menu/', route: '/routes/api/delivery/menu.route', handler: 'create', method: 'POST', protected: false },
-    { httpRoute: '/menu/', route: '/routes/api/delivery/menu.route', handler: 'update', method: 'PATCH', protected: false },
+    { httpRoute: '/menu/:queryselector', route: '/routes/api/menu/menu.route', handler: 'get', method: 'GET', protected: false },
+    { httpRoute: '/menu/', route: '/routes/api/menu/menu.route', handler: 'create', method: 'POST', protected: false },
+    { httpRoute: '/menu/', route: '/routes/api/menu/menu.route', handler: 'update', method: 'PATCH', protected: false },
+    { httpRoute: '/menu/', route: '/routes/api/menu/menu.route', handler: 'delete', method: 'DELETE', protected: false },
     //item_de_menu
-    { httpRoute: '/item_de_menu/:queryselector', route: '/routes/api/delivery/item_de_menu.route', handler: 'get', method: 'GET', protected: false },
-    { httpRoute: '/item_de_menu/', route: '/routes/api/delivery/item_de_menu.route', handler: 'create', method: 'POST', protected: false },
-    { httpRoute: '/item_de_menu/', route: '/routes/api/delivery/item_de_menu.route', handler: 'update', method: 'PATCH', protected: false },
+    { httpRoute: '/item_de_menu/:queryselector', route: '/routes/api/itemDeMenu/item_de_menu.route', handler: 'get', method: 'GET', protected: false },
+    { httpRoute: '/item_de_menu/', route: '/routes/api/itemDeMenu/item_de_menu.route', handler: 'create', method: 'POST', protected: false },
+    { httpRoute: '/item_de_menu/', route: '/routes/api/itemDeMenu/item_de_menu.route', handler: 'update', method: 'PATCH', protected: false },
+    { httpRoute: '/item_de_menu/', route: '/routes/api/itemDeMenu/item_de_menu.route', handler: 'delete', method: 'DELETE', protected: false },
     //order
-    { httpRoute: '/order/:queryselector', route: '/routes/api/delivery/order.route', handler: 'get', method: 'GET', protected: false },
-    { httpRoute: '/order/', route: '/routes/api/delivery/order.route', handler: 'create', method: 'POST', protected: false },
-    { httpRoute: '/order/', route: '/routes/api/delivery/order.route', handler: 'update', method: 'PATCH', protected: false }
+    { httpRoute: '/order/:queryselector', route: '/routes/api/order/order.route', handler: 'get', method: 'GET', protected: false },
+    { httpRoute: '/order/', route: '/routes/api/order/order.route', handler: 'create', method: 'POST', protected: false },
+    { httpRoute: '/order/', route: '/routes/api/order/order.route', handler: 'update', method: 'PATCH', protected: false },
+    { httpRoute: '/order/', route: '/routes/api/order/order.route', handler: 'delete', method: 'DELETE', protected: false }
   ]
 }
 
