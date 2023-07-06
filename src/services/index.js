@@ -8,9 +8,9 @@ const DeviceService = require('./device/device-management/device-management.serv
 const NotificationService = require('./notification/notification-management/notification-management.service')
 const UserService = require('./user/user-management/user-management.service')
 
-const MenuService = require('./menu/menuController')
-const MenuItemService = require('./itemDeMenu/itemDeMenuController')
-const OrderService = require('./order/orderController')
+const MenuService = require('./menu/menu-management/menu-management.service')
+const MenuItemService = require('./menu/menu-item/menu-item.service')
+const OrderService = require('./order/order-management/order-management.service')
 
 const Template = require('./_template/_template.service')
 

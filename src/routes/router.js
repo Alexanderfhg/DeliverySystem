@@ -31,28 +31,30 @@ const router = {
     { httpRoute: '/user/', route: '/routes/api/user/user.route', handler: 'create', method: 'POST', protected: false },
     { httpRoute: '/user/', route: '/routes/api/user/user.route', handler: 'update', method: 'PATCH', protected: false }
   ],
-  example:[
+  example: [
     // Template
     { httpRoute: '/template/:queryselector', route: '/routes/api/_template/_template.route', handler: 'get', method: 'GET', protected: false },
     { httpRoute: '/template/', route: '/routes/api/_template/_template.route', handler: 'create', method: 'POST', protected: false },
     { httpRoute: '/template/', route: '/routes/api/_template/_template.route', handler: 'update', method: 'PATCH', protected: false }
   ],
+  menu: [
+    // Menu
+    { httpRoute: '/menu/:queryselector', route: '/routes/api/menu/menu-management/menu-management.route', handler: 'get', method: 'GET', protected: false },
+    { httpRoute: '/menu/', route: '/routes/api/menu/menu-management/menu-management.route', handler: 'create', method: 'POST', protected: false },
+    { httpRoute: '/menu/', route: '/routes/api/menu/menu-management/menu-management.route', handler: 'update', method: 'PATCH', protected: false },
+    { httpRoute: '/menu/', route: '/routes/api/menu/menu-management/menu-management.route', handler: 'delete', method: 'DELETE', protected: false },
+    // Menu item
+    { httpRoute: '/menu-item/:queryselector', route: '/routes/api/menu/menu-item/menu-item.route', handler: 'get', method: 'GET', protected: false },
+    { httpRoute: '/menu-item/', route: '/routes/api/menu/menu-item/menu-item.route', handler: 'create', method: 'POST', protected: false },
+    { httpRoute: '/menu-item/', route: '/routes/api/menu/menu-item/menu-item.route', handler: 'update', method: 'PATCH', protected: false },
+    { httpRoute: '/menu-item/', route: '/routes/api/menu/menu-item/menu-item.route', handler: 'delete', method: 'DELETE', protected: false }
+  ],
   delivery: [
-    // menu
-    { httpRoute: '/menu/:queryselector', route: '/routes/api/menu/menu.route', handler: 'get', method: 'GET', protected: false },
-    { httpRoute: '/menu/', route: '/routes/api/menu/menu.route', handler: 'create', method: 'POST', protected: false },
-    { httpRoute: '/menu/', route: '/routes/api/menu/menu.route', handler: 'update', method: 'PATCH', protected: false },
-    { httpRoute: '/menu/', route: '/routes/api/menu/menu.route', handler: 'delete', method: 'DELETE', protected: false },
-    //item_de_menu
-    { httpRoute: '/item_de_menu/:queryselector', route: '/routes/api/itemDeMenu/item_de_menu.route', handler: 'get', method: 'GET', protected: false },
-    { httpRoute: '/item_de_menu/', route: '/routes/api/itemDeMenu/item_de_menu.route', handler: 'create', method: 'POST', protected: false },
-    { httpRoute: '/item_de_menu/', route: '/routes/api/itemDeMenu/item_de_menu.route', handler: 'update', method: 'PATCH', protected: false },
-    { httpRoute: '/item_de_menu/', route: '/routes/api/itemDeMenu/item_de_menu.route', handler: 'delete', method: 'DELETE', protected: false },
-    //order
-    { httpRoute: '/order/:queryselector', route: '/routes/api/order/order.route', handler: 'get', method: 'GET', protected: false },
-    { httpRoute: '/order/', route: '/routes/api/order/order.route', handler: 'create', method: 'POST', protected: false },
-    { httpRoute: '/order/', route: '/routes/api/order/order.route', handler: 'update', method: 'PATCH', protected: false },
-    { httpRoute: '/order/', route: '/routes/api/order/order.route', handler: 'delete', method: 'DELETE', protected: false }
+    // Order
+    { httpRoute: '/order/:queryselector', route: '/routes/api/order/order-management/order-management.route', handler: 'get', method: 'GET', protected: false },
+    { httpRoute: '/order/', route: '/routes/api/order/order-management/order-management.route', handler: 'create', method: 'POST', protected: false },
+    { httpRoute: '/order/', route: '/routes/api/order/order-management/order-management.route', handler: 'update', method: 'PATCH', protected: false },
+    { httpRoute: '/order/', route: '/routes/api/order/order-management/order-management.route', handler: 'delete', method: 'DELETE', protected: false }
   ]
 }
 

@@ -1,4 +1,4 @@
-class orderController {
+class MenuItemService {
   constructor (dependencies) {
     this._dependencies = dependencies
     this._db = dependencies.db
@@ -6,24 +6,22 @@ class orderController {
     this._utilities = dependencies.utilities
     this._console = this._dependencies.console
     this._services = this._dependencies.services
-    this._tableName = 'order'
+    this._tableName = 'menu-items'
   }
 
   async create (data) {
     try {
-      if (!data) {
-        return this._utilities.io.response.error('Please provide PROPERTY')
+      if (!data || !data.name) {
+        return this._utilities.io.response.error('Please provide a name')
       }
 
-      data.id = this._utilities.generator.id({ length: 15, prefix: 'order-' })
+      data.id = this._utilities.generator.id({ length: 15, prefix: 'mnit-' })
 
-      const entity = new this._models.Order(data, this._dependencies)
-
+      const entity = new this._models.MenuItem(data, this._dependencies)
       const transactionResponse = await this._db.transaction.create({
         tableName: this._tableName,
         entity: entity.get
       })
-
 
       if (!transactionResponse) {
         this._console.error(transactionResponse)
@@ -65,16 +63,17 @@ class orderController {
       if (!data || !data.queryselector) {
         return this._utilities.io.response.error('Please provide a queryselector')
       }
-
       let response = {}
 
       switch (data.queryselector) {
         case 'id':
           response = await this.#getById(data)
-          // response = this._utilities.io.response.success("vas excelente, bravoooooo", "Muy bien Freddy", { status: 200 })
           break
-        case 'PROPERTY':
+        case 'name':
           response = await this.#getByPROPERTY(data)
+          break
+        case 'all':
+          response = await this.#getAll()
           break
         default:
           response = this._utilities.io.response.error('Provide a valid slug to query')
@@ -94,14 +93,9 @@ class orderController {
         return this._utilities.io.response.error('Please provide an id')
       }
 
-      const updatedEntity = {
-        id: data.id,
-        status: this._models.Order.statuses.deleted
-      }
-
       const transactionResponse = await this._db.transaction.update({
         tableName: this._tableName,
-        entity: updatedEntity
+        entity: { id: data.id, status: this.status.deleted }
       })
 
       if (!transactionResponse) {
@@ -109,13 +103,12 @@ class orderController {
         return this._utilities.io.response.error()
       }
 
-      return this._utilities.io.response.success(updatedEntity)
+      return this._utilities.io.response.success()
     } catch (error) {
       this._console.error(error)
       return this._utilities.io.response.error()
     }
   }
-
 
   async #getById (data) {
     try {
@@ -140,10 +133,22 @@ class orderController {
         return this._utilities.io.response.error('Please provide query to search')
       }
 
-      const dataPropertys = Object.keys(data);
       return this.#getByFilters({
         filters: [
-          { key: dataPropertys[1], operator: '==', value: data[dataPropertys[1]] }
+          { key: 'name', operator: '==', value: data.search }
+        ]
+      })
+    } catch (error) {
+      this._console.error(error)
+      return this._utilities.io.response.error()
+    }
+  }
+
+  async #getAll () {
+    try {
+      return this.#getByFilters({
+        filters: [
+          { key: null, operator: '==', value: null }
         ]
       })
     } catch (error) {
@@ -171,8 +176,8 @@ class orderController {
   }
 
   get status () {
-    return this._models.Order.statuses
+    return this._models.MenuItem.statuses
   }
 }
 
-module.exports = orderController
+module.exports = MenuItemService

@@ -5,30 +5,35 @@ const BaseModel = require(path.resolve(path.dirname(require.main.filename), 'src
  * @swagger
  * components:
  *    schemas:
- *      Menu:
+ *      MenuItem:
  *        type: object
  *        required:
+ *          - productId
  *          - name
  *        properties:
  *          id:
  *            type: string
- *            description: Menu id
+ *            description: Id of the menu item
+ *          productId:
+ *            type: string
+ *            description: Unique identifier of the menu item
  *          name:
  *            type: string
- *            description: Menu name
+ *            description: Name of the menu item
  *          description:
  *            type: string
- *            description: Menu description
- *          items:
- *            type: array
- *            description: Menu items
+ *            description: Description of the menu item
+ *          price:
+ *            type: number
+ *            description: Price of the menu item
  *        example:
- *            id: "1"
- *            name: "Pizzas"
- *            description: "Delicious pizzas made with fresh ingredients"
- *            items: ["101", "102", "103"]
+ *          id: ""
+ *          productId: "101"
+ *          name: "Margherita Pizza"
+ *          description: "Classic pizza topped with tomato sauce, mozzarella cheese, and basil"
+ *          price: 10.99
  */
-class MenuManagementModel extends BaseModel {
+class MenuItemModel extends BaseModel {
   constructor (args, dependencies) {
     if (!args || !dependencies) {
       throw new Error('Required args and dependencies to build this entity')
@@ -52,20 +57,22 @@ class MenuManagementModel extends BaseModel {
     this.id = { value: args.id, type: this._types.bigserial, isPK: true }
     this.date_creation = { value: timestamp, type: this._types.timestamp }
     this.last_user_modification = { value: args.user_id, type: this._types.object }
-    this.status = { value: args.status || MenuManagementModel.statuses.active, type: this._types.object }
+    this.status = { value: args.status || MenuItemModel.statuses.active, type: this._types.object }
 
     /* Custom fields */
+    this.productId = { value: args.productId, type: this._types.string }
     this.name = { value: args.name, type: this._types.string }
     this.description = { value: args.description, type: this._types.string }
-    this.items = { value: args.items, type: this._types.array }
+    this.price = { value: args.price, type: this._types.decimal }
   }
 
   // Return entity sanitized
   get sanitized () {
     return {
       id: this.id.value || this.id.type.default,
+      productId: this.productId.value || this.productId.type.default,
       name: this.name.value || this.name.type.default,
-      items: this.items.value || this.items.type.default,
+      price: this.price.value || this.price.type.default
     }
   }
 
@@ -76,17 +83,18 @@ class MenuManagementModel extends BaseModel {
       last_modification: this.last_modification.value || this.last_modification.type.default,
       last_user_modification: this.last_user_modification.value || this.last_user_modification.type.default,
       status: this.status.value || this.status.type.default,
+      productId: this.productId.value || this.productId.type.default,
       name: this.name.value || this.name.type.default,
       description: this.description.value || this.description.type.default,
-      items: this.items.value || this.items.type.default
+      price: this.price.value || this.price.type.default
     }
   }
 }
 
-MenuManagementModel.statuses = {
+MenuItemModel.statuses = {
   inactive: { id: 1, name: 'inactive', title: 'Inactive' },
   active: { id: 2, name: 'active', title: 'Active' },
   deleted: { id: 999, name: 'deleted', title: 'Deleted' }
 }
 
-module.exports = MenuManagementModel
+module.exports = MenuItemModel

@@ -13,21 +13,21 @@ const BaseModel = require(path.resolve(path.dirname(require.main.filename), 'src
  *        properties:
  *          id:
  *            type: string
- *            description: Order id
+ *            description: Id of the order
  *          customerName:
  *            type: string
- *            description: Customer name
+ *            description: Name of the customer
  *          items:
  *            type: array
  *            description: Items included in the order
  *        example:
- *          id: "1"
+ *          id: ""
  *          customerName: "John Doe"
- *          items: ["101", "102", "203"]
+ *          items: ["101", "203", "504"]
  */
 
 class OrderManagementModel extends BaseModel {
-  constructor(args, dependencies) {
+  constructor (args, dependencies) {
     if (!args || !dependencies) {
       throw new Error('Required args and dependencies to build this entity')
     }
@@ -58,15 +58,15 @@ class OrderManagementModel extends BaseModel {
   }
 
   // Return entity sanitized
-  get sanitized() {
+  get sanitized () {
     return {
       id: this.id.value || this.id.type.default,
       customerName: this.customerName.value || this.customerName.type.default,
-      items: this.items.value || this.items.type.default,
+      items: this.items.value || this.items.type.default
     }
   }
 
-  get get() {
+  get get () {
     return {
       id: this.id.value || this.id.type.default,
       date_creation: this.date_creation.value || this.date_creation.type.default,
@@ -74,7 +74,7 @@ class OrderManagementModel extends BaseModel {
       last_user_modification: this.last_user_modification.value || this.last_user_modification.type.default,
       status: this.status.value || this.status.type.default,
       customerName: this.customerName.value || this.customerName.type.default,
-      items: this.items.value || this.items.type.default,
+      items: this.items.value || this.items.type.default
     }
   }
 }
@@ -82,7 +82,7 @@ class OrderManagementModel extends BaseModel {
 OrderManagementModel.statuses = {
   inactive: { id: 1, name: 'inactive', title: 'Inactive' },
   active: { id: 2, name: 'active', title: 'Active' },
-  deleted: { id: 999, name: 'deleted', title: 'Deleted' },
+  deleted: { id: 999, name: 'deleted', title: 'Deleted' }
 }
 
 module.exports = OrderManagementModel

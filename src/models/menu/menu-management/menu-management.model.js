@@ -5,32 +5,31 @@ const BaseModel = require(path.resolve(path.dirname(require.main.filename), 'src
  * @swagger
  * components:
  *    schemas:
- *      ItemMenu:
+ *      Menu:
  *        type: object
  *        required:
  *          - name
- *          - price
  *        properties:
  *          id:
  *            type: string
- *            description: Item de Menú id
+ *            description: Unique identifier of the menu
  *          name:
  *            type: string
- *            description: Item de Menú name
+ *            description: Name of the menu
  *          description:
  *            type: string
- *            description: Item de Menú description
- *          price:
- *            type: number
- *            description: Item de Menú price
+ *            description: Description of the menu
+ *          items:
+ *            type: array
+ *            description: Items included in the menu
  *        example:
- *          id: "101"
- *          name: "Margherita Pizza"
- *          description: "Classic pizza topped with tomato sauce, mozzarella cheese, and basil"
- *          price: 10900
+ *            id: ""
+ *            name: "Pizzas"
+ *            description: "Delicious pizzas made with fresh ingredients"
+ *            items: ["101", "102", "103"]
  */
-class ItemMenuManagementModel extends BaseModel {
-  constructor(args, dependencies) {
+class MenuManagementModel extends BaseModel {
+  constructor (args, dependencies) {
     if (!args || !dependencies) {
       throw new Error('Required args and dependencies to build this entity')
     }
@@ -53,24 +52,24 @@ class ItemMenuManagementModel extends BaseModel {
     this.id = { value: args.id, type: this._types.bigserial, isPK: true }
     this.date_creation = { value: timestamp, type: this._types.timestamp }
     this.last_user_modification = { value: args.user_id, type: this._types.object }
-    this.status = { value: args.status || ItemMenuManagementModel.statuses.active, type: this._types.object }
+    this.status = { value: args.status || MenuManagementModel.statuses.active, type: this._types.object }
 
     /* Custom fields */
     this.name = { value: args.name, type: this._types.string }
     this.description = { value: args.description, type: this._types.string }
-    this.price = { value: args.price, type: this._types.decimal }
+    this.items = { value: args.items, type: this._types.array }
   }
 
   // Return entity sanitized
-  get sanitized() {
+  get sanitized () {
     return {
       id: this.id.value || this.id.type.default,
       name: this.name.value || this.name.type.default,
-      price: this.price.value || this.price.type.default,
+      items: this.items.value || this.items.type.default
     }
   }
 
-  get get() {
+  get get () {
     return {
       id: this.id.value || this.id.type.default,
       date_creation: this.date_creation.value || this.date_creation.type.default,
@@ -79,15 +78,15 @@ class ItemMenuManagementModel extends BaseModel {
       status: this.status.value || this.status.type.default,
       name: this.name.value || this.name.type.default,
       description: this.description.value || this.description.type.default,
-      price: this.price.value || this.price.type.default
+      items: this.items.value || this.items.type.default
     }
   }
 }
 
-ItemMenuManagementModel.statuses = {
+MenuManagementModel.statuses = {
   inactive: { id: 1, name: 'inactive', title: 'Inactive' },
   active: { id: 2, name: 'active', title: 'Active' },
-  deleted: { id: 999, name: 'deleted', title: 'Deleted' },
+  deleted: { id: 999, name: 'deleted', title: 'Deleted' }
 }
 
-module.exports = ItemMenuManagementModel
+module.exports = MenuManagementModel
