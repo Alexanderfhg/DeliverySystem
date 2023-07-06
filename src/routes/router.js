@@ -43,7 +43,7 @@ const router = {
     { httpRoute: '/menu/', route: '/routes/api/menu/menu-management/menu-management.route', handler: 'create', method: 'POST', protected: false },
     { httpRoute: '/menu/', route: '/routes/api/menu/menu-management/menu-management.route', handler: 'update', method: 'PATCH', protected: false },
     { httpRoute: '/menu/', route: '/routes/api/menu/menu-management/menu-management.route', handler: 'delete', method: 'DELETE', protected: false },
-    // MenuItem
+    // Menu item
     { httpRoute: '/menu-item/:queryselector', route: '/routes/api/menu/menu-item/menu-item.route', handler: 'get', method: 'GET', protected: false },
     { httpRoute: '/menu-item/', route: '/routes/api/menu/menu-item/menu-item.route', handler: 'create', method: 'POST', protected: false },
     { httpRoute: '/menu-item/', route: '/routes/api/menu/menu-item/menu-item.route', handler: 'update', method: 'PATCH', protected: false },
@@ -57,6 +57,5 @@ const router = {
     { httpRoute: '/order/', route: '/routes/api/order/order-management/order-management.route', handler: 'delete', method: 'DELETE', protected: false }
   ]
 }
-// require('./api/order/order-management/order-management.route')
 
 module.exports = router
