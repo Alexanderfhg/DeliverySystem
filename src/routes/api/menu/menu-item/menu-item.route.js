@@ -14,12 +14,12 @@ class MenuItemRoute {
   }
   /**
  * @swagger
- * /delivery/ItemMenu/{queryselector}:
+ * /menu/menu-item/{queryselector}:
  *   get:
- *     summary: Get an ItemMenu by query selector.
- *     description: Returns the ItemMenu information that matches the query selector an search specified in the route.
+ *     summary: Get a menu item by query selector.
+ *     description: Returns the menu item information that matches the query selector an search specified in the route.
  *     tags:
- *       - ItemMenu
+ *       - MenuItem
  *     parameters:
  *       - in: path
  *         name: queryselector
@@ -28,7 +28,7 @@ class MenuItemRoute {
  *         schema:
  *           enum:
  *              - id
- *              - PROPERTY
+ *              - name
  *       - in: query
  *         name: search
  *         description: Keyword to search for entities.
@@ -49,7 +49,7 @@ class MenuItemRoute {
  *                   success: true
  *                   message: Operation completed successfully
  *                   result:
- *                     $ref: '#/components/schemas/ItemMenu'
+ *                     $ref: '#/components/schemas/MenuItem'
  *       500:
  *         description: Something was wrong while you make this action.
  *         content:
@@ -77,46 +77,46 @@ class MenuItemRoute {
 
   /**
   *  @swagger
-  * /delivery/ItemMenu:
-  *   post:
-  *     summary: Create a new ItemMenu.
-  *     description: Creates a new ItemMenu using the provided data.
-  *     tags:
-  *       - ItemMenu
-  *     requestBody:
-  *       required: true
-  *       content:
-  *         application/json:
-  *           schema:
-  *             $ref: '#/components/schemas/ItemMenu'
-  *     responses:
-  *       200:
-  *         description: OK.
+  * /menu/menu-item:
+  *    post:
+  *       summary: Create a new menu item.
+  *       description: Creates a new menu item using the provided data.
+  *       tags:
+  *         - MenuItem
+  *       requestBody:
+  *         required: true
   *         content:
   *           application/json:
   *             schema:
-  *               $ref: '#/components/schemas/Response'
-  *             examples:
-  *               Success:
-  *                 value:
-  *                   status: 200
-  *                   success: true
-  *                   message: Operation completed successfully
-  *                   result:
-  *                     $ref: '#/components/schemas/ItemMenu'
-  *       500:
-  *         description: Something went wrong while performing this action.
-  *         content:
-  *           application/json:
-  *             schema:
-  *               $ref: '#/components/schemas/Response'
-  *             examples:
-  *               Error:
-  *                 value:
-  *                   status: 500
-  *                   success: false
-  *                   message: Something went wrong while performing this action
-  *                   result: null
+  *               $ref: '#/components/schemas/MenuItem'
+  *       responses:
+  *         200:
+  *           description: OK.
+  *           content:
+  *             application/json:
+  *               schema:
+  *                 $ref: '#/components/schemas/Response'
+  *               examples:
+  *                 Success:
+  *                   value:
+  *                     status: 200
+  *                     success: true
+  *                     message: Operation completed successfully
+  *                     result:
+  *                       $ref: '#/components/schemas/MenuItem'
+  *         500:
+  *           description: Something went wrong while performing this action.
+  *           content:
+  *             application/json:
+  *               schema:
+  *                 $ref: '#/components/schemas/Response'
+  *               examples:
+  *                 Error:
+  *                   value:
+  *                     status: 500
+  *                     success: false
+  *                     message: Something went wrong while performing this action
+  *                     result: null
   */
   async create ({ params }) {
     try {
@@ -130,18 +130,18 @@ class MenuItemRoute {
 
   /**
  * @swagger
- * /delivery/ItemMenu:
+ * /menu/menu-item:
  *   patch:
- *     summary: Update an existing ItemMenu.
- *     description: Updates an existing ItemMenu with the new data.
+ *     summary: Update an existing menu item.
+ *     description: Updates an existing menu item with the new data.
  *     tags:
- *       - ItemMenu
+ *       - MenuItem
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/ItemMenu'
+ *             $ref: '#/components/schemas/MenuItem'
  *     responses:
  *       200:
  *         description: OK.
@@ -156,7 +156,7 @@ class MenuItemRoute {
  *                   success: true
  *                   message: Operation completed successfully
  *                   result:
- *                     $ref: '#/components/schemas/ItemMenu'
+ *                     $ref: '#/components/schemas/MenuItem'
  *       500:
  *         description: Something went wrong while performing this action.
  *         content:
@@ -183,18 +183,19 @@ class MenuItemRoute {
 
   /**
  * @swagger
- * /delivery/ItemMenu:
+ * /menu/menu-item:
  *   delete:
- *     summary: Delete an ItemMenu.
- *     description: Deletes an ItemMenu based on the provided ID.
+ *     summary: Delete a menu item by its id.
+ *     description: Deletes a menu item based on the provided ID.
  *     tags:
- *       - ItemMenu
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/ItemMenu'
+ *       - MenuItem
+ *     parameters:
+ *       - in: query
+ *         name: id
+ *         description: Id of the item to delete
+ *         required: true
+ *         schema:
+ *           type: string
  *     responses:
  *       200:
  *         description: OK.
@@ -207,7 +208,7 @@ class MenuItemRoute {
  *                 value:
  *                   status: 200
  *                   success: true
- *                   message: ItemMenu successfully deleted
+ *                   message: Menu item successfully deleted
  *                   result: null
  *       500:
  *         description: Something went wrong while performing this action.

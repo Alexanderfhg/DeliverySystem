@@ -11,11 +11,11 @@ class MenuManagementService {
 
   async create (data) {
     try {
-      if (!data) {
-        return this._utilities.io.response.error('Please provide PROPERTY')
+      if (!data || !data.name) {
+        return this._utilities.io.response.error('Please provide a name')
       }
 
-      data.id = this._utilities.generator.id({ length: 15, prefix: 'menu-' })
+      data.id = this._utilities.generator.id({ length: 15, prefix: 'mn-' })
 
       const entity = new this._models.Menu(data, this._dependencies)
       const transactionResponse = await this._db.transaction.create({
@@ -63,14 +63,13 @@ class MenuManagementService {
       if (!data || !data.queryselector) {
         return this._utilities.io.response.error('Please provide a queryselector')
       }
-
       let response = {}
 
       switch (data.queryselector) {
         case 'id':
           response = await this.#getById(data)
           break
-        case 'PROPERTY':
+        case 'name':
           response = await this.#getByPROPERTY(data)
           break
         default:
@@ -91,14 +90,9 @@ class MenuManagementService {
         return this._utilities.io.response.error('Please provide an id')
       }
 
-      const updatedEntity = {
-        id: data.id,
-        status: this._models.Menu.statuses.deleted
-      }
-
       const transactionResponse = await this._db.transaction.update({
         tableName: this._tableName,
-        entity: updatedEntity
+        entity: { id: data.id, status: this.status.deleted }
       })
 
       if (!transactionResponse) {
@@ -106,7 +100,7 @@ class MenuManagementService {
         return this._utilities.io.response.error()
       }
 
-      return this._utilities.io.response.success(updatedEntity)
+      return this._utilities.io.response.success()
     } catch (error) {
       this._console.error(error)
       return this._utilities.io.response.error()
@@ -136,10 +130,9 @@ class MenuManagementService {
         return this._utilities.io.response.error('Please provide query to search')
       }
 
-      const dataPropertys = Object.keys(data)
       return this.#getByFilters({
         filters: [
-          { key: dataPropertys[1], operator: '==', value: data[dataPropertys[1]] }
+          { key: 'name', operator: '==', value: data.search }
         ]
       })
     } catch (error) {

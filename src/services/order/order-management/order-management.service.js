@@ -11,14 +11,13 @@ class OrderManagementService {
 
   async create (data) {
     try {
-      if (!data) {
-        return this._utilities.io.response.error('Please provide PROPERTY')
+      if (!data || !data.customerName) {
+        return this._utilities.io.response.error('Please provide customerName')
       }
 
-      data.id = this._utilities.generator.id({ length: 15, prefix: 'order-' })
+      data.id = this._utilities.generator.id({ length: 15, prefix: 'ord-' })
 
       const entity = new this._models.Order(data, this._dependencies)
-
       const transactionResponse = await this._db.transaction.create({
         tableName: this._tableName,
         entity: entity.get
@@ -64,14 +63,13 @@ class OrderManagementService {
       if (!data || !data.queryselector) {
         return this._utilities.io.response.error('Please provide a queryselector')
       }
-
       let response = {}
 
       switch (data.queryselector) {
         case 'id':
           response = await this.#getById(data)
           break
-        case 'PROPERTY':
+        case 'customerName':
           response = await this.#getByPROPERTY(data)
           break
         default:
@@ -92,14 +90,9 @@ class OrderManagementService {
         return this._utilities.io.response.error('Please provide an id')
       }
 
-      const updatedEntity = {
-        id: data.id,
-        status: this._models.Order.statuses.deleted
-      }
-
       const transactionResponse = await this._db.transaction.update({
         tableName: this._tableName,
-        entity: updatedEntity
+        entity: { id: data.id, status: this.status.deleted }
       })
 
       if (!transactionResponse) {
@@ -107,7 +100,7 @@ class OrderManagementService {
         return this._utilities.io.response.error()
       }
 
-      return this._utilities.io.response.success(updatedEntity)
+      return this._utilities.io.response.success()
     } catch (error) {
       this._console.error(error)
       return this._utilities.io.response.error()
@@ -137,10 +130,9 @@ class OrderManagementService {
         return this._utilities.io.response.error('Please provide query to search')
       }
 
-      const dataPropertys = Object.keys(data)
       return this.#getByFilters({
         filters: [
-          { key: dataPropertys[1], operator: '==', value: data[dataPropertys[1]] }
+          { key: 'customerName', operator: '==', value: data.search }
         ]
       })
     } catch (error) {

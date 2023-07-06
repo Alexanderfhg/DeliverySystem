@@ -5,29 +5,33 @@ const BaseModel = require(path.resolve(path.dirname(require.main.filename), 'src
  * @swagger
  * components:
  *    schemas:
- *      ItemMenu:
+ *      MenuItem:
  *        type: object
  *        required:
+ *          - productId
  *          - name
- *          - price
  *        properties:
  *          id:
  *            type: string
- *            description: Item de Menú id
+ *            description: Id of the menu item
+ *          productId:
+ *            type: string
+ *            description: Unique identifier of the menu item
  *          name:
  *            type: string
- *            description: Item de Menú name
+ *            description: Name of the menu item
  *          description:
  *            type: string
- *            description: Item de Menú description
+ *            description: Description of the menu item
  *          price:
  *            type: number
- *            description: Item de Menú price
+ *            description: Price of the menu item
  *        example:
- *          id: "101"
+ *          id: ""
+ *          productId: "101"
  *          name: "Margherita Pizza"
  *          description: "Classic pizza topped with tomato sauce, mozzarella cheese, and basil"
- *          price: 10900
+ *          price: 10.99
  */
 class MenuItemModel extends BaseModel {
   constructor (args, dependencies) {
@@ -56,6 +60,7 @@ class MenuItemModel extends BaseModel {
     this.status = { value: args.status || MenuItemModel.statuses.active, type: this._types.object }
 
     /* Custom fields */
+    this.productId = { value: args.productId, type: this._types.string }
     this.name = { value: args.name, type: this._types.string }
     this.description = { value: args.description, type: this._types.string }
     this.price = { value: args.price, type: this._types.decimal }
@@ -65,6 +70,7 @@ class MenuItemModel extends BaseModel {
   get sanitized () {
     return {
       id: this.id.value || this.id.type.default,
+      productId: this.productId.value || this.productId.type.default,
       name: this.name.value || this.name.type.default,
       price: this.price.value || this.price.type.default
     }
@@ -77,6 +83,7 @@ class MenuItemModel extends BaseModel {
       last_modification: this.last_modification.value || this.last_modification.type.default,
       last_user_modification: this.last_user_modification.value || this.last_user_modification.type.default,
       status: this.status.value || this.status.type.default,
+      productId: this.productId.value || this.productId.type.default,
       name: this.name.value || this.name.type.default,
       description: this.description.value || this.description.type.default,
       price: this.price.value || this.price.type.default

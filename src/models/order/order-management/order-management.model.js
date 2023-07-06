@@ -13,17 +13,17 @@ const BaseModel = require(path.resolve(path.dirname(require.main.filename), 'src
  *        properties:
  *          id:
  *            type: string
- *            description: Order id
+ *            description: Id of the order
  *          customerName:
  *            type: string
- *            description: Customer name
+ *            description: Name of the customer
  *          items:
  *            type: array
  *            description: Items included in the order
  *        example:
- *          id: "1"
+ *          id: ""
  *          customerName: "John Doe"
- *          items: ["101", "102", "203"]
+ *          items: ["101", "203", "504"]
  */
 
 class OrderManagementModel extends BaseModel {

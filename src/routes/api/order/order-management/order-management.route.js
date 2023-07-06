@@ -29,7 +29,7 @@ class OrderManagementRoute {
  *         schema:
  *           enum:
  *              - id
- *              - PROPERTY
+ *              - customerName
  *       - in: query
  *         name: search
  *         description: Keyword to search for entities.
@@ -67,7 +67,7 @@ class OrderManagementRoute {
  */
   async get ({ params }) {
     try {
-      const entityService = new this.OrderService(this._dependencies)
+      const entityService = new this.EntityService(this._dependencies)
       return entityService.get(params)
     } catch (error) {
       this._console.error(error)
@@ -120,7 +120,7 @@ class OrderManagementRoute {
 
   async create ({ params }) {
     try {
-      const entityService = new this.OrderService(this._dependencies)
+      const entityService = new this.EntityService(this._dependencies)
       return entityService.create(params)
     } catch (error) {
       this._console.error(error)
@@ -141,7 +141,7 @@ class OrderManagementRoute {
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/UpdateOrderRequest'
+ *             $ref: '#/components/schemas/Order'
  *     responses:
  *       200:
  *         description: OK.
@@ -173,7 +173,7 @@ class OrderManagementRoute {
  */
   async update ({ params }) {
     try {
-      const entityService = new this.OrderService(this._dependencies)
+      const entityService = new this.EntityService(this._dependencies)
       return entityService.update(params)
     } catch (error) {
       this._console.error(error)
@@ -185,16 +185,17 @@ class OrderManagementRoute {
  * @swagger
  * /delivery/order:
  *   delete:
- *     summary: Delete an order.
+ *     summary: Delete an order by its id.
  *     description: Deletes an order based on the provided ID.
  *     tags:
  *       - Order
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/DeleteOrderRequest'
+ *     parameters:
+ *       - in: query
+ *         name: id
+ *         description: Id of the order to delete
+ *         required: true
+ *         schema:
+ *           type: string
  *     responses:
  *       200:
  *         description: OK.
@@ -225,7 +226,7 @@ class OrderManagementRoute {
  */
   async delete ({ params }) {
     try {
-      const entityService = new this.OrderService(this._dependencies)
+      const entityService = new this.EntityService(this._dependencies)
       return entityService.delete(params)
     } catch (error) {
       this._console.error(error)

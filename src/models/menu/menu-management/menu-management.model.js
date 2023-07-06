@@ -12,18 +12,18 @@ const BaseModel = require(path.resolve(path.dirname(require.main.filename), 'src
  *        properties:
  *          id:
  *            type: string
- *            description: Menu id
+ *            description: Unique identifier of the menu
  *          name:
  *            type: string
- *            description: Menu name
+ *            description: Name of the menu
  *          description:
  *            type: string
- *            description: Menu description
+ *            description: Description of the menu
  *          items:
  *            type: array
- *            description: Menu items
+ *            description: Items included in the menu
  *        example:
- *            id: "1"
+ *            id: ""
  *            name: "Pizzas"
  *            description: "Delicious pizzas made with fresh ingredients"
  *            items: ["101", "102", "103"]

@@ -15,10 +15,10 @@ class MenuManagementRoute {
 
   /**
  * @swagger
- * /delivery/menu/{queryselector}:
+ * /menu/menu/{queryselector}:
  *   get:
- *     summary: Get an Menu by query selector.
- *     description: Returns the Menu information that matches the query selector an search specified in the route.
+ *     summary: Get a menu by query selector.
+ *     description: Returns the menu information that matches the query selector an search specified in the route.
  *     tags:
  *       - Menu
  *     parameters:
@@ -29,7 +29,7 @@ class MenuManagementRoute {
  *         schema:
  *           enum:
  *              - id
- *              - PROPERTY
+ *              - name
  *       - in: query
  *         name: search
  *         description: Keyword to search for entities.
@@ -78,10 +78,10 @@ class MenuManagementRoute {
 
   /**
   *  @swagger
-  * /delivery/menu:
+  * /menu/menu:
   *   post:
-  *     summary: Create a new Menu.
-  *     description: Creates a new Menu using the provided data.
+  *     summary: Create a new menu.
+  *     description: Creates a new menu using the provided data.
   *     tags:
   *       - Menu
   *     requestBody:
@@ -132,10 +132,10 @@ class MenuManagementRoute {
 
   /**
  * @swagger
- * /delivery/menu:
+ * /menu/menu:
  *   patch:
- *     summary: Update an existing Menu.
- *     description: Updates an existing Menu with the new data.
+ *     summary: Update an existing menu.
+ *     description: Updates an existing menu with the new data.
  *     tags:
  *       - Menu
  *     requestBody:
@@ -143,7 +143,7 @@ class MenuManagementRoute {
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/UpdateMenuRequest'
+ *             $ref: '#/components/schemas/Menu'
  *     responses:
  *       200:
  *         description: OK.
@@ -186,18 +186,19 @@ class MenuManagementRoute {
 
   /**
  * @swagger
- * /delivery/menu:
+ * /menu/menu:
  *   delete:
- *     summary: Delete an Menu.
- *     description: Deletes an Menu based on the provided ID.
+ *     summary: Delete an menu by its id.
+ *     description: Deletes an menu based on the provided ID.
  *     tags:
  *       - Menu
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/DeleteMenu'
+ *     parameters:
+ *       - in: query
+ *         name: id
+ *         description: Id of the menu to delete
+ *         required: true
+ *         schema:
+ *           type: string
  *     responses:
  *       200:
  *         description: OK.
