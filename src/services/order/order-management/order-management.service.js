@@ -72,6 +72,9 @@ class OrderManagementService {
         case 'customerName':
           response = await this.#getByPROPERTY(data)
           break
+        case 'all':
+          response = await this.#getAll()
+          break
         default:
           response = this._utilities.io.response.error('Provide a valid slug to query')
           break
@@ -133,6 +136,19 @@ class OrderManagementService {
       return this.#getByFilters({
         filters: [
           { key: 'customerName', operator: '==', value: data.search }
+        ]
+      })
+    } catch (error) {
+      this._console.error(error)
+      return this._utilities.io.response.error()
+    }
+  }
+
+  async #getAll () {
+    try {
+      return this.#getByFilters({
+        filters: [
+          { key: null, operator: '==', value: null }
         ]
       })
     } catch (error) {
