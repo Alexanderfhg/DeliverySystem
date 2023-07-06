@@ -15,7 +15,7 @@ class MenuManagementRoute {
 
   /**
  * @swagger
- * /menu/menu/{queryselector}:
+ * /menu/{queryselector}:
  *   get:
  *     summary: Get a menu by query selector.
  *     description: Returns the menu information that matches the query selector an search specified in the route.
@@ -30,10 +30,11 @@ class MenuManagementRoute {
  *           enum:
  *              - id
  *              - name
+ *              - all
  *       - in: query
  *         name: search
  *         description: Keyword to search for entities.
- *         required: true
+ *         required: false
  *         schema:
  *           type: string
  *     responses:
@@ -78,7 +79,7 @@ class MenuManagementRoute {
 
   /**
   *  @swagger
-  * /menu/menu:
+  * /menu:
   *   post:
   *     summary: Create a new menu.
   *     description: Creates a new menu using the provided data.
@@ -132,7 +133,7 @@ class MenuManagementRoute {
 
   /**
  * @swagger
- * /menu/menu:
+ * /menu:
  *   patch:
  *     summary: Update an existing menu.
  *     description: Updates an existing menu with the new data.
@@ -186,7 +187,7 @@ class MenuManagementRoute {
 
   /**
  * @swagger
- * /menu/menu:
+ * /menu:
  *   delete:
  *     summary: Delete an menu by its id.
  *     description: Deletes an menu based on the provided ID.

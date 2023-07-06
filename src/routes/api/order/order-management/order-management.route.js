@@ -30,10 +30,11 @@ class OrderManagementRoute {
  *           enum:
  *              - id
  *              - customerName
+ *              - all
  *       - in: query
  *         name: search
  *         description: Keyword to search for entities.
- *         required: true
+ *         required: false
  *         schema:
  *           type: string
  *     responses:

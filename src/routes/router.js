@@ -39,15 +39,15 @@ const router = {
   ],
   menu: [
     // Menu
-    { httpRoute: '/menu/:queryselector', route: '/routes/api/menu/menu-management/menu-management.route', handler: 'get', method: 'GET', protected: false },
-    { httpRoute: '/menu/', route: '/routes/api/menu/menu-management/menu-management.route', handler: 'create', method: 'POST', protected: false },
-    { httpRoute: '/menu/', route: '/routes/api/menu/menu-management/menu-management.route', handler: 'update', method: 'PATCH', protected: false },
-    { httpRoute: '/menu/', route: '/routes/api/menu/menu-management/menu-management.route', handler: 'delete', method: 'DELETE', protected: false },
+    { httpRoute: '/:queryselector', route: '/routes/api/menu/menu-management/menu-management.route', handler: 'get', method: 'GET', protected: false },
+    { httpRoute: '/', route: '/routes/api/menu/menu-management/menu-management.route', handler: 'create', method: 'POST', protected: false },
+    { httpRoute: '/', route: '/routes/api/menu/menu-management/menu-management.route', handler: 'update', method: 'PATCH', protected: false },
+    { httpRoute: '/', route: '/routes/api/menu/menu-management/menu-management.route', handler: 'delete', method: 'DELETE', protected: false },
     // Menu item
-    { httpRoute: '/menu-item/:queryselector', route: '/routes/api/menu/menu-item/menu-item.route', handler: 'get', method: 'GET', protected: false },
-    { httpRoute: '/menu-item/', route: '/routes/api/menu/menu-item/menu-item.route', handler: 'create', method: 'POST', protected: false },
-    { httpRoute: '/menu-item/', route: '/routes/api/menu/menu-item/menu-item.route', handler: 'update', method: 'PATCH', protected: false },
-    { httpRoute: '/menu-item/', route: '/routes/api/menu/menu-item/menu-item.route', handler: 'delete', method: 'DELETE', protected: false }
+    { httpRoute: '/item/:queryselector', route: '/routes/api/menu/menu-item/menu-item.route', handler: 'get', method: 'GET', protected: false },
+    { httpRoute: '/item/', route: '/routes/api/menu/menu-item/menu-item.route', handler: 'create', method: 'POST', protected: false },
+    { httpRoute: '/item/', route: '/routes/api/menu/menu-item/menu-item.route', handler: 'update', method: 'PATCH', protected: false },
+    { httpRoute: '/item/', route: '/routes/api/menu/menu-item/menu-item.route', handler: 'delete', method: 'DELETE', protected: false }
   ],
   delivery: [
     // Order
